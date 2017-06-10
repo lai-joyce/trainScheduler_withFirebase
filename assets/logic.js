@@ -1,4 +1,5 @@
 
+  $(function() {
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAer8OMM_-tzRU8exO3mMrAnOCg7OgYP6U",
@@ -17,7 +18,7 @@
 
     var train = $("#trainName").val().trim();
     var trainDestination = $("#destination").val().trim();
-    var firstTimeInput = moment($("#firstTrainTime").val().trim(), "HH:mm").subtract(10, "years").format("X");;
+    var firstTimeInput = moment($("#firstTrainTime").val().trim(), "HH:mm").subtract(10, "years").format("X");
     var frequency = $("#frequencyMinutes").val().trim();
 
     console.log(train);
@@ -67,30 +68,14 @@
     console.log(moment().format("X"));
 
     // Append train info to table on page
-    $(".table > tbody").append("<tr><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + "</td><td class='text-center'>" + minutes + "</td></tr>");
+    $(".table > tbody").append("<tr><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
+      "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + 
+      "</td><td class='text-center'>" + minutes + "</td></tr>");
 
   });
+}); 
 
-
-
-  // database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-  // // console.log(dateAdded);
-  //     var newTr = $("<tr>");
-  //     var tdName = $("<td>").html(snapshot.val().trainName);
-
-  //     var monthsWorked = moment(snapshot.val().startDate).diff(moment(), "months");
-  //     console.log(monthsWorked);
-     
-  //     newTr.append(tdName);
-  //     var tdDestination = $("<td>").html(snapshot.val().role);
-  //     newTr.append(tdDestination);
-  //     var tdFrequency = $("<td>").html(snapshot.val().startDate);
-  //     newTr.append(tdFrequency);
-  //     var tdNextTrain = $("<td>").html(snapshot.val().monthlyRate);
-  //     newTr.append(tdNextTrain);
-
-   
-
-  //   $("#tableBody").append(newTr);
-
-  // });
+// $(document).on("click", '.removeButton', function() {
+//     var index = $(this).data("index");
+//     console.log("index= " + index);
+// });
