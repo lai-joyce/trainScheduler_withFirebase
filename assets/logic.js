@@ -13,7 +13,7 @@
 
   var database = firebase.database();
 
-  $("#addBtn").on("click", function() {
+  $("#addBtn").on("click", function(event) {
     event.preventDefault();
 
     var train = $("#trainName").val().trim();
@@ -40,7 +40,7 @@
 
   });
 
-  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+  database.ref().on("child_added", function(childSnapshot) {
 
     console.log(childSnapshot.val());
     // Store everything into a variable.
@@ -70,12 +70,23 @@
     // Append train info to table on page
     $(".table > tbody").append("<tr><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
       "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + 
-      "</td><td class='text-center'>" + minutes + "</td></tr>");
+      "</td><td class='text-center'>" + minutes + "<td><button class='removeButton' data-key='key_value'>Remove</button>" + "</td></tr>");
 
   });
+
+//remove train on click
+  $("body").on("click", '.removeButton', function() {
+    database.ref().child($(this).attr("data-key")).remove();
+    
+  });
+
+//watcher for child removed
+database.ref().on("child_removed", function(childSnapshot) {
+  //save the key as a variable
+  var key_value = childSnapshot.key;
+  //remove row with id that matches key of child that was removed
+  $("#"+key_value).remove();
+  });
+
 }); 
 
-// $(document).on("click", '.removeButton', function() {
-//     var index = $(this).data("index");
-//     console.log("index= " + index);
-// });
