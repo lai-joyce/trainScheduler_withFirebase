@@ -68,7 +68,7 @@
     console.log(moment().format("X"));// time in unixtimestamp
 
     // Append train info to table on page
-    $(".table > tbody").append("<tr class='singleTrainItem'><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
+    $(".table > tbody").append("<tr class='singleTrainItem' id='" + childSnapshot.key + "'><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
       "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + 
       "</td><td class='text-center'>" + minutes + "<td><button type='submit' class='removeButton' data-key='" + childSnapshot.key + "'>Remove</button>" + "</td></tr>");
 
@@ -93,9 +93,9 @@
 //watcher for child removed
 database.ref().on("child_removed", function(childSnapshot) {
   //save the key as a variable
-  var key_value = childSnapshot.key;
+  // var key_value = childSnapshot.key;
   //remove row with id that matches key of child that was removed
-  $("#"+key_value).remove();
+  $("#"+childSnapshot.key).remove();
   });
 
 }); 
