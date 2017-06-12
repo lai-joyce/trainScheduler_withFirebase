@@ -70,7 +70,7 @@
     // Append train info to table on page
     $(".table > tbody").append("<tr class='singleTrainItem'><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
       "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + 
-      "</td><td class='text-center'>" + minutes + "<td><button type='submit' class='removeButton' data-key='key_value'>Remove</button>" + "</td></tr>");
+      "</td><td class='text-center'>" + minutes + "<td><button type='submit' class='removeButton' data-key='" + childSnapshot.key + "'>Remove</button>" + "</td></tr>");
 
   });
 
@@ -78,14 +78,15 @@
   $("#currentTrainScheduleBody").on("click", '.removeButton', function() {
     console.log("inside click");
 
-    var $thisRow = $(this).parent().parent();
+    // var $thisRow = $(this).parent().parent();
+    database.ref().child($(this).attr("data-key")).remove();
 
     // console.log("$this", $this);
     // var singleItem = $(".singleTrainItem");
     // var singleTrainLine = $this.parent(singleItem);
     // console.log("singleTrainLine", singleTrainLine);
   
-    database.ref().child($thisRow.remove());
+    // database.ref().child($thisRow.remove());
 
   });
 
