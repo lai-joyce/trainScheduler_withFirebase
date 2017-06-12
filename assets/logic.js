@@ -54,7 +54,7 @@
     console.log(trainFirstTime);
     console.log(trainFrequency);
 
-    var diffTime = moment().diff(moment.unix(trainFirstTime), "minutes");
+    var diffTime = moment().diff(moment.unix(trainFirstTime), "minutes");//when moment() does not have argument, current time is referenced
     var timeRemainder = moment().diff(moment.unix(trainFirstTime), "minutes") % trainFrequency ;
     var minutes = trainFrequency - timeRemainder;
 
@@ -65,19 +65,28 @@
     console.log(nextTrainArrival);
     console.log(moment().format("hh:mm A"));
     console.log(nextTrainArrival);
-    console.log(moment().format("X"));
+    console.log(moment().format("X"));// time in unixtimestamp
 
     // Append train info to table on page
-    $(".table > tbody").append("<tr><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
+    $(".table > tbody").append("<tr class='singleTrainItem'><td class='text-center'>" + trainID + "</td><td class='text-center'>" + trainFinalPlace + 
       "</td><td class='text-center'>" + trainFrequency + " mins" + "</td><td class='text-center'>" + nextTrainArrival + 
-      "</td><td class='text-center'>" + minutes + "<td><button class='removeButton' data-key='key_value'>Remove</button>" + "</td></tr>");
+      "</td><td class='text-center'>" + minutes + "<td><button type='submit' class='removeButton' data-key='key_value'>Remove</button>" + "</td></tr>");
 
   });
 
 //remove train on click
-  $("body").on("click", '.removeButton', function() {
-    database.ref().child($(this).attr("data-key")).remove();
-    
+  $("#currentTrainScheduleBody").on("click", '.removeButton', function() {
+    console.log("inside click");
+
+    var $thisRow = $(this).parent().parent();
+
+    // console.log("$this", $this);
+    // var singleItem = $(".singleTrainItem");
+    // var singleTrainLine = $this.parent(singleItem);
+    // console.log("singleTrainLine", singleTrainLine);
+  
+    database.ref().child($thisRow.remove());
+
   });
 
 //watcher for child removed
